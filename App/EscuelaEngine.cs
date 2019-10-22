@@ -22,9 +22,34 @@ namespace CoreEscuela
 
             CargarCursos();
             CargarAsignaturas();
-        
+            CargarEvaluaciones();
         }
 
+        private void CargarEvaluaciones()
+        {
+            var lista = new List<Evaluación>();
+            foreach (var curso in Escuela.Cursos)
+            {
+                foreach (var asignatura in curso.Asignaturas)
+                {
+                    foreach (var alumno in curso.Alumnos)
+                    {
+                        var rnd = new Random(System.Environment.TickCount);
+
+                        for (int i = 0; i < 5; i++)
+                        {
+                            var ev = new Evaluación
+                            {
+                                Asignatura = asignatura,
+                                Nombre = $"{asignatura.Nombre} Ev#{i + 1}",
+                                Nota = (float)(5 * rnd.NextDouble())
+                            };
+                            lista.Add(ev);
+                        }
+                    }
+                }
+            }
+        }
         private float NoteSimulator()
         {
             var rand = new Random();
