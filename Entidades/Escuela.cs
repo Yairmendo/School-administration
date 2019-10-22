@@ -1,18 +1,12 @@
 using System;
 using System.Collections.Generic;
 
+
 namespace CoreEscuela.Entidades
 {
 
-    public class Escuela
+    public class Escuela: ObjetoEscuelaBase
     {
-        public string UniqueId {get; private set; } = Guid.NewGuid().ToString();
-        string nombre;
-        public string Nombre
-        {
-            get { return "Copia:" + nombre; }
-            set {nombre = value.ToUpper();}
-        }
 
         public int AñodeCreacion{get; set;}
 
