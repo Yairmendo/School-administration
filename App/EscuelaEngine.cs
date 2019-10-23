@@ -24,6 +24,26 @@ namespace CoreEscuela
             CargarAsignaturas();
             CargarEvaluaciones();
         }
+                public List<ObjetoEscuelaBase> GetObjetosEscuela()
+        {
+            var listaObj = new List<ObjetoEscuelaBase>();
+            listaObj.Add(Escuela);
+            listaObj.AddRange(Escuela.Cursos);
+
+            foreach (var curso in Escuela.Cursos)
+            {
+                listaObj.AddRange(curso.Asignaturas);
+                listaObj.AddRange(curso.Alumnos);
+
+                foreach (var alumno in curso.Alumnos)
+                {
+                    listaObj.AddRange(alumno.Evaluaciones);
+                }
+            }
+
+            return listaObj;
+        }
+        #region Métodos de carga
 
         private void CargarEvaluaciones()
         {
@@ -50,6 +70,8 @@ namespace CoreEscuela
                 }
             }
         }
+
+
         private float NoteSimulator()
         {
             var rand = new Random();
@@ -108,4 +130,5 @@ namespace CoreEscuela
         }
 
     }
+    #endregion
 }
