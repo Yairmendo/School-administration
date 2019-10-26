@@ -11,10 +11,12 @@ namespace CoreEscuela
     {
         static void Main(string[] args)
         {
+            AppDomain.CurrentDomain.ProcessExit += AccionDelEvento;
+
             var engine = new EscuelaEngine();
             engine.Inicializar();
             Printer.WriteTitle("Bienvenidos a la escuela");
-            imprimirCursosEscuela(engine.Escuela);
+            //imprimirCursosEscuela(engine.Escuela);
             Dictionary<int, string> diccionario = new Dictionary<int, string>();
 
             diccionario.Add(10, "Juan K");
@@ -26,6 +28,8 @@ namespace CoreEscuela
             }
 
             var dictmp =engine.GetDiccionarioObjetos();
+
+            engine.ImprimirDiccionario(dictmp, true);
         }
 
         private static void imprimirCursosEscuela(Escuela escuela)

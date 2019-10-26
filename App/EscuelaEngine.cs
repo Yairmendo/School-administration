@@ -23,14 +23,38 @@ namespace CoreEscuela
             CargarAsignaturas();
             CargarEvaluaciones();
         }
-        public void ImprimirDiccionario(Dictionary<LlaveDiccionario, IEnumerable<ObjetoEscuelaBase>> dic)
+        public void ImprimirDiccionario(Dictionary<LlaveDiccionario, IEnumerable<ObjetoEscuelaBase>> dic,
+                        bool imprEval = false)
         {
-            foreach (var obj in dic)
+            foreach (var objdic in dic)
             {
-                Printer.WriteTitle(obj.Key.ToString());
-                foreach (var val in obj.Value)
+                Printer.WriteTitle(objdic.Key.ToString());
+                foreach (var val in objdic.Value)
                 {
-                    Console.WriteLine(val);
+                    switch (objdic.Key)
+                    {
+                        case LlaveDiccionario.Evaluación:
+                            if(imprEval)
+                                Console.WriteLine(val);
+                        break;
+                        case LlaveDiccionario.Escuela:
+                                Console.WriteLine("Escuela: "+ val);
+                        break;
+                        case LlaveDiccionario.Alumno:
+                                Console.WriteLine("Alumno: "+ val.Nombre);
+                        break;
+                        case LlaveDiccionario.Curso:
+                                var curtmp = val as Curso;
+                                if (curtmp != null)
+                                {
+                                    int count = ((Curso)val).Alumnos.Count;
+                                    Console.WriteLine("Curso: "+ val.Nombre + "Cantidad Alumnos: " + count);
+                                }
+                        break;
+                        default:
+                            Console.WriteLine(val);
+                        break;
+                    }
                 }
             }
         }
@@ -149,22 +173,21 @@ namespace CoreEscuela
         #region Métodos de carga
 
         private void CargarEvaluaciones()
-        {
+        {      
+            var rnd = new Random();
             foreach (var curso in Escuela.Cursos)
             {
                 foreach (var asignatura in curso.Asignaturas)
                 {
                     foreach (var alumno in curso.Alumnos)
                     {
-                        var rnd = new Random(System.Environment.TickCount);
-
                         for (int i = 0; i < 5; i++)
                         {
                             var ev = new Evaluación
                             {
                                 Asignatura = asignatura,
                                 Nombre = $"{asignatura.Nombre} Ev#{i + 1}",
-                                Nota = (float)(5 * rnd.NextDouble()),
+                                Nota =(float)Math.Round(10 * rnd.NextDouble(), 2),
                                 Alumno = alumno
                             };
                             alumno.Evaluaciones.Add(ev);
