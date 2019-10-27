@@ -18,9 +18,12 @@ namespace CoreEscuela.App
             Printer.WriteTitle("Bienvenidos a la escuela");
 
             var reporteador = new Reporteador(engine.GetDiccionarioObjetos());
-            reporteador.GetListaEvaluaciones();
-            
-        }
+            var evalList = reporteador.GetListaEvaluaciones();
+            var listaAsg = reporteador.GetListaAsignaturas();
+            var listaEvalXAsig = reporteador.GetDicEvaluaXAsig();
+            var listaPromXAsig = reporteador.GetPromeAlumnPorAsignatura();
+
+        }   
 
         private static void AccionDelEvento(object sender, EventArgs e)
         {
