@@ -5,7 +5,7 @@ using CoreEscuela.Entidades;
 using CoreEscuela.Util;
 using static System.Console;
 
-namespace CoreEscuela
+namespace CoreEscuela.App
 {
     class Program
     {
@@ -16,20 +16,10 @@ namespace CoreEscuela
             var engine = new EscuelaEngine();
             engine.Inicializar();
             Printer.WriteTitle("Bienvenidos a la escuela");
-            //imprimirCursosEscuela(engine.Escuela);
-            Dictionary<int, string> diccionario = new Dictionary<int, string>();
 
-            diccionario.Add(10, "Juan K");
-            diccionario.Add(23, "Lorem K");
-
-            foreach (var keyValPair in diccionario)
-            {
-                WriteLine($"Key: {keyValPair.Key} Valor: {keyValPair.Value}");
-            }
-
-            var dictmp =engine.GetDiccionarioObjetos();
-
-            engine.ImprimirDiccionario(dictmp, true);
+            var reporteador = new Reporteador(engine.GetDiccionarioObjetos());
+            reporteador.GetListaEvaluaciones();
+            
         }
 
         private static void AccionDelEvento(object sender, EventArgs e)
