@@ -26,7 +26,6 @@ namespace CoreEscuela.App
             Printer.WriteTitle("Captura de una evaluación por consola");
             var newEval = new Evaluación();
             string nombre, notastring;
-            float nota;
 
             WriteLine("Ingrese el nombre de la evaluación ");
             Printer.PresioneENTER();
